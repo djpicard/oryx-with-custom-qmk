@@ -145,23 +145,22 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 static void process_left_magic(uint16_t keycode, uint8_t mods) { // LMAGIC definitions
     switch (keycode) {
       // right hand
-        case  KC_B: { SEND_STRING("ecause"); } break;
-        case  KC_C: { SEND_STRING("an"); } break;
-        case  KC_D: { SEND_STRING("d"); } break;
-        case  KC_F: { SEND_STRING("f"); } break;
-        case  KC_G: { SEND_STRING("eneral"); } break;
-        case  KC_J: { SEND_STRING("ust"); } break;
-        case  KC_K: { SEND_STRING("k"); } break;
-        case  KC_L: { SEND_STRING("l"); } break;
-        case  KC_M: { SEND_STRING("ent"); } break;
+        case  KC_B: { SEND_STRING("r"); } break;
+        case  KC_C: { SEND_STRING("n"); } break;
+        case  KC_D: { SEND_STRING("g"); } break;
+        case  KC_F: { SEND_STRING("o"); } break;
+        case  KC_G: { SEND_STRING("m"); } break;
+        case  KC_J: { SEND_STRING("u"); } break;
+        case  KC_K: { SEND_STRING("e"); } break;
+        case  KC_L: { SEND_STRING("e"); } break;
+        case  KC_M: { SEND_STRING("p"); } break;
         case  KC_N: { SEND_STRING("ion"); } break;
-        case  KC_P: { SEND_STRING("retty"); } break;
-        case  KC_R: { SEND_STRING("n"); } break;
-        case  KC_S: { SEND_STRING("s"); } break;
-        case  KC_T: { SEND_STRING("t"); } break;
-        case  KC_V: { SEND_STRING("azjorfia"); } break;
-        case  KC_W: { SEND_STRING("hich"); } break;
-        case  KC_Z: { SEND_STRING("z"); } break;
+        case  KC_P: { SEND_STRING("r"); } break;
+        case  KC_R: { SEND_STRING("m"); } break;
+        case  KC_S: { SEND_STRING("w"); } break;
+        case  KC_V: { SEND_STRING("e"); } break;
+        case  KC_W: { SEND_STRING("n"); } break;
+        case  KC_Z: { SEND_STRING("e"); } break;
         default: tap_code(get_last_keycode()); break;
      }
 }
@@ -171,13 +170,14 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) { // RMAGIC defi
       // left hand
         case  KC_Q: { SEND_STRING("u"); } break;
         case  KC_Y: { SEND_STRING("ou"); } break;
-        case  KC_O: { SEND_STRING("o"); } break;
-        case  KC_U: { SEND_STRING("u"); } break;
-        case  KC_H: { SEND_STRING("h"); } break;
-        case  KC_I: { SEND_STRING("i"); } break;
-        case  KC_E: { SEND_STRING("e"); } break;
+        case  KC_O: { SEND_STRING("."); } break;
+        case  KC_U: { SEND_STRING("a"); } break;
+        case  KC_H: { SEND_STRING("ey"); } break;
+        case  KC_I: { SEND_STRING("'"); } break;
+        case  KC_E: { SEND_STRING("o"); } break;
         case  KC_A: { SEND_STRING("u"); } break;
-        case  KC_X: { SEND_STRING("x"); } break;
+        case  KC_X: { SEND_STRING("y"); } break;
+        case  KC_T: { SEND_STRING("ion"); } break;
         default: tap_code(get_last_keycode()); break;
 
     }
