@@ -162,7 +162,7 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) { // LMAGIC defin
         case  KC_V: { SEND_STRING("azjorfia"); } break;
         case  KC_W: { SEND_STRING("hich"); } break;
         case  KC_Z: { SEND_STRING("z"); } break;
-        default: SEND_STRING(keycode); break;
+        default: SEND_STRING(SS_TAP(keycode)); break;
      }
 }
  
@@ -178,7 +178,7 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) { // RMAGIC defi
         case  KC_E: { SEND_STRING("e"); } break;
         case  KC_A: { SEND_STRING("u"); } break;
         case  KC_X: { SEND_STRING("x"); } break;
-        default: SEND_STRING(keycode); break;
+        default: SEND_STRING(SS_TAP(keycode)); break;
 
     }
 }
