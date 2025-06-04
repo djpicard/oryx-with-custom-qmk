@@ -6,11 +6,7 @@
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  LMAGIC,
-  RMAGIC,
 };
-
-
 
 #define DUAL_FUNC_0 LT(7, KC_X)
 #define DUAL_FUNC_1 LT(4, KC_C)
@@ -27,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_DELETE,      
     KC_TAB,         KC_B,           KC_W,           KC_D,           KC_L,           KC_SCLN,                                        KC_SLASH,       KC_F,           KC_O,           KC_U,           KC_J,           KC_MINUS,       
-    KC_NO,          MT(MOD_LCTL, KC_C),MT(MOD_LSFT, KC_S),MT(MOD_LGUI, KC_T),MT(MOD_LALT, KC_R),LT(3, KC_X),                                    LT(2, KC_Q),    MT(MOD_RALT, KC_N),MT(MOD_RGUI, KC_A),MT(MOD_RSFT, KC_I),MT(MOD_RCTL, KC_H),KC_QUOTE,       
+    QK_AREP,        MT(MOD_LCTL, KC_C),MT(MOD_LSFT, KC_S),MT(MOD_LGUI, KC_T),MT(MOD_LALT, KC_R),LT(3, KC_X),                                    LT(2, KC_Q),    MT(MOD_RALT, KC_N),MT(MOD_RGUI, KC_A),MT(MOD_RSFT, KC_I),MT(MOD_RCTL, KC_H),KC_QUOTE,       
     KC_BSLS,        KC_V,           KC_Y,           KC_G,           KC_M,           KC_Z,                                           KC_EQUAL,       KC_P,           KC_DOT,         KC_COMMA,       KC_K,           TG(1),          
                                                     KC_E,           KC_ENTER,                                       KC_BSPC,        LT(4, KC_SPACE)
   ),
@@ -60,7 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };
-
 
 
 extern rgb_config_t rgb_matrix_config;
@@ -142,60 +137,30 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 // An enhanced version of SEND_STRING: if Caps Word is active, the Shift key is
 // held while sending the string. Additionally, the last key is set such that if
 // the Repeat Key is pressed next, it produces `repeat_keycode`.
-static void process_left_magic(uint16_t keycode, uint8_t mods) { // LMAGIC definitions
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    // bigrams
     switch (keycode) {
-      // right hand
-        case  KC_B: { SEND_STRING("r"); } break;
-        case  KC_C: { SEND_STRING("n"); } break;
-        case  KC_D: { SEND_STRING("g"); } break;
-        case  KC_F: { SEND_STRING("o"); } break;
-        case  KC_G: { SEND_STRING("m"); } break;
-        case  KC_J: { SEND_STRING("u"); } break;
-        case  KC_K: { SEND_STRING("e"); } break;
-        case  KC_L: { SEND_STRING("e"); } break;
-        case  KC_M: { SEND_STRING("p"); } break;
-        case  KC_N: { SEND_STRING("ion"); } break;
-        case  KC_P: { SEND_STRING("r"); } break;
-        case  KC_R: { SEND_STRING("m"); } break;
-        case  KC_S: { SEND_STRING("w"); } break;
-        case  KC_V: { SEND_STRING("e"); } break;
-        case  KC_W: { SEND_STRING("n"); } break;
-        case  KC_Z: { SEND_STRING("e"); } break;
-        default: tap_code(get_last_keycode()); break;
-     }
-}
- 
-static void process_right_magic(uint16_t keycode, uint8_t mods) { // RMAGIC definitions
-    switch (keycode) {
-      // left hand
-        case  KC_Q: { SEND_STRING("u"); } break;
-        case  KC_Y: { SEND_STRING("ou"); } break;
-        case  KC_O: { SEND_STRING("."); } break;
-        case  KC_U: { SEND_STRING("a"); } break;
-        case  KC_H: { SEND_STRING("ey"); } break;
-        case  KC_I: { SEND_STRING("'"); } break;
-        case  KC_E: { SEND_STRING("o"); } break;
-        case  KC_A: { SEND_STRING("u"); } break;
-        case  KC_X: { SEND_STRING("y"); } break;
-        case  KC_T: { SEND_STRING("ion"); } break;
-        default: tap_code(get_last_keycode()); break;
-
+      case KC_R: return KC_M;  
+      case KC_Y: return KC_S;  
+      case KC_U: return KC_I; 
+      case KC_O: return KC_A; 
+      case KC_N: return KC_F; 
+      case KC_S: return KC_Y; 
+      case KC_W: return KC_S; 
+      case KC_D: return KC_G; 
+      case KC_A: return KC_DOT; 
+      case KC_X: return KC_T;
+      case KC_P: return KC_O;
+      case KC_B: return KC_Y;
+      case KC_G: return KC_L;
     }
+
+    return KC_TRNS;  // Defer to default definitions.
 }
 //---------------------------------------------------------------------------------
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LMAGIC:
-      if (record->event.pressed) {
-        process_left_magic(get_last_keycode(), get_last_mods());
-      }
-      return false;
-    case RMAGIC:
-      if (record->event.pressed) {
-        process_right_magic(get_last_keycode(), get_last_mods());
-      }
-      return false;
     case DUAL_FUNC_0:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
