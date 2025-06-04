@@ -123,17 +123,6 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-// ARCANE Key setup-------------------------------------------------
-bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
-                            uint8_t* remembered_mods) {
-      switch (keycode) {
-        case LMAGIC:
-        case RMAGIC:
-           return false;  // Magic keys will ignore the above keycodes.
-      }
-   return true;  // Other keys can be repeated.
-}
-
 // An enhanced version of SEND_STRING: if Caps Word is active, the Shift key is
 // held while sending the string. Additionally, the last key is set such that if
 // the Repeat Key is pressed next, it produces `repeat_keycode`.
